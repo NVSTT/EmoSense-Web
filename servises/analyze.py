@@ -118,6 +118,6 @@ def resize(post_sentiment: str ,post_text: str, length: str, ollama_client:Ollam
     Текст на {length} слов.
     Ответ только перефразированный текст."""
     
-    resized_text = ollama_client.generate( prompt,max_tokens=1000,temperature=0.6)
+    resized_text = ollama_client.generate( prompt,max_tokens=1000,temperature=0.3)
     return resized_text or "Не удалось сгенерировать"
  

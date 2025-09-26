@@ -1,5 +1,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
     margin: 0;
     padding: 0;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -8,55 +10,106 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
 }
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            padding: 50px;
             width: 100%;
-            max-width: 1000px;
+            max-width: 1100px;
             text-align: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 25px;
+            pointer-events: none;
         }
         h1 {
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+            margin-bottom: 15px;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: glow 2s ease-in-out infinite alternate;
         }
+
+        @keyframes glow {
+            from { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 255, 255, 0.5); }
+            to { text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3), 0 0 30px rgba(255, 255, 255, 0.8); }
+        }
+
         p {
-            color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            color: #e0e0e0;
+            margin-bottom: 40px;
+            font-size: 1.2em;
+            font-weight: 500;
         }
         form {
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 20px;
         }
         textarea {
             width: 100%;
-            height: 150px;
-            padding: 20px;
+            height: 180px;
+            padding: 25px;
             font-size: 18px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            border: 2px solid #e1e5e9;
-            border-radius: 15px;
+            line-height: 1.8;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
             box-sizing: border-box;
             resize: vertical;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-            background-color: #fafafa;
-            color: #333;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 10px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
         }
         textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2), inset 0 2px 4px rgba(0, 0, 0, 0.1);
-            background-color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.1), inset 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.15);
         }
         .button-group {
             display: flex;
@@ -65,66 +118,96 @@ body {
             justify-content: center;
         }
         button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
             color: white;
-            padding: 15px 35px;
+            padding: 18px 40px;
             font-size: 18px;
-            font-weight: 600;
-            border: none;
-            border-radius: 30px;
+            font-weight: 700;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 35px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2);
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        button:hover::before {
+            left: 100%;
         }
         button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
-            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
         }
         button:active {
-            transform: translateY(0);
+            transform: translateY(-2px) scale(1.02);
         }
         .result {
-            margin-top: 40px;
-            padding: 30px;
-            border-radius: 20px;
+            margin-top: 30px;
+            padding: 25px;
+            border-radius: 25px;
             font-size: 18px;
             text-align: center;
-            animation: fadeIn 0.6s ease-in;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(5px);
+            animation: fadeIn 0.8s ease-in;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
         }
         .positive {
-            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: linear-gradient(135deg, rgba(86, 171, 47, 0.3) 0%, rgba(168, 230, 207, 0.3) 100%);
+            color: #ffffff;
+            border: 1px solid rgba(86, 171, 47, 0.5);
         }
         .negative {
-            background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: linear-gradient(135deg, rgba(255, 65, 108, 0.3) 0%, rgba(255, 75, 43, 0.3) 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 65, 108, 0.5);
         }
         .neutral {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.3) 0%, rgba(56, 239, 125, 0.3) 100%);
+            color: #ffffff;
+            border: 1px solid rgba(17, 153, 142, 0.5);
         }
         .note {
             font-size: 16px;
-            color: #777;
-            margin-top: 25px;
+            color: #e0e0e0;
+            margin-top: 30px;
             text-align: center;
             font-style: italic;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .emotion-bars, .full-reasoning, .resize-section {
+            animation: slideIn 0.8s ease-out;
         }
 
         .llm-checkbox {
@@ -154,23 +237,25 @@ body {
         }
 
         .toggle-switch {
-            margin: 20px 0;
+            margin: 15px 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 20px;
             justify-content: center;
             font-size: 16px;
-            color: #555;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 25px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .toggle-switch:hover {
-            background: rgba(255, 255, 255, 1);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .toggle-switch input[type="radio"] {
@@ -179,17 +264,20 @@ body {
 
         .toggle-switch label {
             cursor: pointer;
-            padding: 10px 20px;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            background: #e1e5e9;
-            color: #666;
+            padding: 12px 25px;
+            border-radius: 25px;
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .toggle-switch input[type="radio"]:checked + label {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
             color: white;
-            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+            box-shadow: 0 6px 15px rgba(102, 126, 234, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
         .loader {
@@ -213,33 +301,36 @@ body {
         }
 
         .emotion-bars {
-            margin: 20px 0;
+            margin: 15px 0;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .emotion-bars h3 {
             margin: 0 0 15px 0;
             font-size: 18px;
-            color: #333;
+            color: #ffffff;
+            font-weight: 600;
         }
 
         .emotion-bar {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .emotion-bar span {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #555;
+            color: #ffffff;
         }
 
         .progress-bar {
             width: 100%;
-            height: 20px;
+            height: 12px;
             background: #e1e5e9;
             border-radius: 10px;
             overflow: hidden;
@@ -300,13 +391,28 @@ body {
             }
         }
         .full-reasoning {
-            margin-top: 20px;
+            margin-top: 15px;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.7);
-            border-radius: 10px;
-            font-style: italic;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
             text-align: left;
-            border-left: 3px solid #667eea;
+            border-left: 3px solid rgba(102, 126, 234, 0.8);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+        }
+
+        .full-reasoning h4 {
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .full-reasoning p {
+            font-style: italic;
+            margin: 0;
         }
 
         .flash-messages {
@@ -314,31 +420,36 @@ body {
         }
 
         .flash {
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
             margin-bottom: 10px;
             font-weight: bold;
+            backdrop-filter: blur(10px);
         }
 
         .flash.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: rgba(248, 215, 218, 0.3);
+            color: #ffffff;
+            border: 1px solid rgba(245, 198, 203, 0.5);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .resize-section {
-            margin-top: 40px;
+            margin-top: 25px;
             padding: 30px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             text-align: center;
         }
 
         .resize-section h3 {
-            color: #2c3e50;
+            color: #ffffff;
             margin-bottom: 20px;
             font-size: 1.5em;
+            font-weight: 600;
         }
 
         .resize-form {
@@ -356,7 +467,7 @@ body {
 
         .resize-controls label {
             font-weight: bold;
-            color: #555;
+            color: #ffffff;
         }
 
         .resize-controls select,
@@ -396,18 +507,21 @@ body {
         .resized-result {
             margin-top: 20px;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
         .resized-result h4 {
-            color: #2c3e50;
+            color: #ffffff;
             margin-bottom: 10px;
+            font-weight: 600;
         }
 
         .resized-result p {
             font-style: italic;
-            color: #333;
+            color: #ffffff;
             font-size: 18px;
         }
