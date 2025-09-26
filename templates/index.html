@@ -11,6 +11,16 @@
         <h1>🧠 Тональность текста онлайн</h1>
         <p>Напиши пост — ИИ определит его эмоции!</p>
 
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
         <form method="POST">
             <textarea name="post" placeholder="Пример: В томленьях грусти безнадежной...">{{ request.form.get('post', '') }}</textarea><br>
             
