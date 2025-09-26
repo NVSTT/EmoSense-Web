@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Тональность текста онлайн</title>
+<link rel="stylesheet" href="/static/css/styles.css">
+<script src="/static/js/scripts.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Тональность текста онлайн</h1>
+        <p>Напиши пост — ИИ определит его эмоции!</p>
+
+        <form method="POST">
+            <textarea name="post" placeholder="Пример: В томленьях грусти безнадежной...">{{ request.form.get('post', '') }}</textarea><br>
+            
+            <div class="toggle-switch">
+                <input type="radio" id="objective" name="analysis_type" value="objective" {{ 'checked' if analysis_type == 'objective' else '' }}>
+                <label for="objective">Объективно (RuBERT)</label>
+                <input type="radio" id="subjective" name="analysis_type" value="subjective" {{ 'checked' if analysis_type == 'subjective' else '' }}>
+                <label for="subjective">Субъективно (LLM)</label>
+            </div>
+            
+            <button type="submit">Анализировать пост</button>
+        </form>
+
+        <div class="note" id="note">
+            {% if analysis_type == 'objective' %}
+                💡 Совет: используй фразы вроде "I'm happy", "This is terrible", "It's okay" - объективный анализ с RuBERT (математический подход)
+            {% else %}
+                💡 Совет: пиши естественно, как человек - субъективный анализ с LLM (человекоподобные рассуждения)
+            {% endif %}
+        </div>
+
+        <div class="loader" id="loader" style="display: none;">
+            <div class="spinner"></div>
+            <p>Анализируем текст...</p>
+        </div>
+
+
+        {% if result %}
+        <div class="result {{ result.sentiment }}">
+            <strong>Тональность:</strong> {{ result.sentiment_text }}<br><br>
+            <div class="emotion-bars">
+                <h3>Распределение эмоций:</h3>
+                {% for emotion, score in result.emotion_data.items() %}
+                <div class="emotion-bar">
+                    <span>{{ emotion.capitalize() }}: {{ "%.1f"|format(score * 100) }}%</span>
+                    <div class="progress-bar">
+                        <div class="progress-fill {{ emotion }}-fill" data-width="{{ (score * 100) }}"></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <strong>Ваш пост:</strong><br>"<em>{{ result.post }}</em>"<br>
+            <p></p>
+            <strong>Комментарий ИИ:</strong> {{ result.comment }}<br><br>
+            <strong>Пояснение:</strong> {{ result.explanation }}
+        </div>
+        <div class="full-reasoning">
+            <strong>Мнение ИИ:</strong>
+            <p>{{ result.full_reasoning }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
