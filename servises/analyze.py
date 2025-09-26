@@ -62,7 +62,7 @@ def analyze_sentiment(text: str, choose: bool, ollama_client: OllamaClient) -> d
     return {"sentiment": sentiment, "scores": scores}
 
 
-def generate_ai_comment_with_ollama(post_text: str, sentiment: str, ollama_client: OllamaClient) -> str:
+def generate_ai_comment_with_ollama(post_text: str, ollama_client: OllamaClient) -> str:
     prompt = f"""Ты — дружелюбный бот в соцсети. Напиши короткий, тёплый ответ на пост пользователя.
     Ответ должен быть на том же языке, что и пост.
     (1 предложение, максимум 15 слов. Не упоминай тональность.)
@@ -109,3 +109,15 @@ def generate_full_reasoning(post_text: str, scores: dict, ollama_client: OllamaC
     
     raw_reasoning = ollama_client.generate(prompt, max_tokens=350, temperature=0.6)
     return raw_reasoning or "Не удалось сгенерировать подробный анализ."
+
+
+def resize(post_sentiment: str ,post_text: str, length: str, ollama_client:OllamaClient) -> str:
+    
+    prompt = f"""Преобразуй текст в тональность {post_sentiment}
+    Текст: "{post_text}" 
+    Текст на {length} слов.
+    Ответ только перефразированный текст."""
+    
+    resized_text = ollama_client.generate( prompt,max_tokens=1000,temperature=0.6)
+    return resized_text or "Не удалось сгенерировать"
+ 

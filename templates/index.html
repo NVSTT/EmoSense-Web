@@ -72,6 +72,33 @@
             <p>{{ result.full_reasoning }}</p>
         </div>
         {% endif %}
+
+        {% if result %}
+        <div class="resize-section">
+            <h3>✨ Изменить тональность текста</h3>
+            <form method="POST" class="resize-form">
+                <input type="hidden" name="post" value="{{ result.post }}">
+                <input type="hidden" name="analysis_type" value="{{ result.analysis_type }}">
+                <div class="resize-controls">
+                    <label for="resize_sentiment">Новая тональность:</label>
+                    <select name="resize_sentiment" id="resize_sentiment">
+                        <option value="positive">Позитивная</option>
+                        <option value="negative">Негативная</option>
+                        <option value="neutral">Нейтральная</option>
+                    </select>
+                    <label for="resize_length">Длина (слов):</label>
+                    <input type="number" name="resize_length" id="resize_length" min="1" max="100" value="10">
+                    <button type="submit" class="resize-btn">Изменить текст</button>
+                </div>
+            </form>
+            {% if result.resized_text %}
+            <div class="resized-result">
+                <h4>Измененный текст:</h4>
+                <p>"<em>{{ result.resized_text }}</em>"</p>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>

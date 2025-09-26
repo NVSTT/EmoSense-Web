@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, flash, get_flashed_messages
 from model.ollama import OllamaClient, DEFAULT_OLLAMA_HOST, DEFAULT_OLLAMA_MODEL
-from servises.analyze import analyze_sentiment,generate_full_reasoning, generate_ai_comment_with_ollama, generate_sentiment_explanation
+from servises.analyze import analyze_sentiment,generate_full_reasoning, generate_ai_comment_with_ollama, generate_sentiment_explanation, resize
 import bleach
 
 bp = Blueprint('main', __name__)
@@ -38,7 +38,7 @@ def index():
                 else:
                     sentiment_text = "😐 Neutral"
 
-                comment = generate_ai_comment_with_ollama(post_text, sentiment, ollama)
+                comment = generate_ai_comment_with_ollama(post_text, ollama)
                 explanation = generate_sentiment_explanation(post_text, sentiment, ollama)
                 full_reasoning = generate_full_reasoning(post_text, scores, ollama)
 
@@ -52,4 +52,17 @@ def index():
                     "analysis_type": analysis_type,
                     "emotion_data": scores
                 }
+
+                resize_sentiment = request.form.get("resize_sentiment")
+                resize_length = request.form.get("resize_length")
+                if resize_sentiment and resize_length:
+                    try:
+                        length_int = int(resize_length)
+                        if 1 <= length_int <= 100:
+                            resized_text = resize(resize_sentiment, post_text, str(length_int), ollama)
+                            result["resized_text"] = resized_text
+                        else:
+                            flash("Длина должна быть от 1 до 100 слов.", "error")
+                    except ValueError:
+                        flash("Неверная длина.", "error")
     return render_template("index.html", result=result, analysis_type=analysis_type, messages=get_flashed_messages(with_categories=True))
