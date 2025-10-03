@@ -331,27 +331,31 @@ body::before {
         .progress-bar {
             width: 100%;
             height: 12px;
-            background: #e1e5e9;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 10px;
             overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
         }
 
         .progress-fill {
             height: 100%;
-            width: calc(attr(data-width) * 1%);
+            border-radius: 10px;
             transition: width 0.5s ease;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .positive-fill {
-            background: #56ab2f;
+            background: linear-gradient(135deg, rgba(86, 171, 47, 0.8) 0%, rgba(168, 230, 207, 0.8) 100%);
         }
 
         .negative-fill {
-            background: #ff416c;
+            background: linear-gradient(135deg, rgba(255, 65, 108, 0.8) 0%, rgba(255, 75, 43, 0.8) 100%);
         }
 
         .neutral-fill {
-            background: #11998e;
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.8) 0%, rgba(56, 239, 125, 0.8) 100%);
         }
         @media (max-width: 600px) {
             .container {

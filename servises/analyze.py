@@ -21,20 +21,18 @@ def analyze_sentiment(text: str, choose: bool, ollama_client: OllamaClient) -> d
             if json_match:
                 try:
                     parsed = json.loads(json_match.group())
-                    # Убедимся, что все ключи на месте и значения — числа
                     if all(k in parsed for k in ['positive', 'negative', 'neutral']):
                         scores = {
                             'positive': float(parsed['positive']),
                             'negative': float(parsed['negative']),
                             'neutral': float(parsed['neutral'])
                         }
-                        # Нормализуем (на случай, если сумма ≠ 1)
                         total = sum(scores.values())
                         if total > 0:
                             scores = {k: v / total for k, v in scores.items()}
                         sentiment = max(scores, key=scores.get)
                 except (json.JSONDecodeError, ValueError, TypeError):
-                    pass  # оставить fallback
+                    pass
 
     else:
         try:
@@ -49,7 +47,6 @@ def analyze_sentiment(text: str, choose: bool, ollama_client: OllamaClient) -> d
                 label = res['label'].lower()
                 if label in ['positive', 'negative', 'neutral']:
                     scores[label] = res['score']
-            # Заполняем недостающие классы нулями
             for label in ['positive', 'negative', 'neutral']:
                 if label not in scores:
                     scores[label] = 0.0
@@ -89,7 +86,6 @@ def generate_full_reasoning(post_text: str, scores: dict, ollama_client: OllamaC
     Генерирует подробное рассуждение ИИ: какие эмоции доминируют, почему,
     с анализом ключевых фраз и контекста.
     """
-    # Форматируем вероятности для промпта
     prob_str = ", ".join([f"{k}: {v:.1%}" for k, v in scores.items()])
     
     prompt = f"""Ты — эксперт по анализу эмоций в текстах, включая поэзию и сложные случаи.

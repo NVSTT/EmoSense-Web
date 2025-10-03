@@ -22,4 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
         button.disabled = true;
         button.textContent = 'Анализируем...';
     });
+
+    // Исправление ширины прогресс-баров
+    const progressFills = document.querySelectorAll('.progress-fill');
+    progressFills.forEach(fill => {
+        const width = fill.getAttribute('data-width');
+        if (width) {
+            fill.style.width = width + '%';
+        }
+    });
 });

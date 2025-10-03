@@ -15,18 +15,15 @@ def index():
         analysis_type = request.form.get("analysis_type", "objective")
         use_llm = (analysis_type == "subjective")
 
-        # Validate and sanitize input
         if not post_text:
             flash("Пожалуйста, введите текст для анализа.", "error")
         elif len(post_text) > 1000:
             flash("Текст слишком длинный. Максимум 1000 символов.", "error")
         else:
-            # Sanitize input to prevent XSS
             post_text = bleach.clean(post_text, tags=[], attributes={}, strip=True)
-            # Additional filtering: remove excessive whitespace, etc.
-            post_text = ' '.join(post_text.split())  # Normalize whitespace
+            post_text = ' '.join(post_text.split())
 
-            if post_text:  # After sanitization, check again
+            if post_text: 
                 sentiment_data = analyze_sentiment(post_text, use_llm, ollama)
                 sentiment = sentiment_data['sentiment']
                 scores = sentiment_data.get('scores', {"positive": 0.33, "negative": 0.33, "neutral": 0.34})
