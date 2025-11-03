@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Вход</h1>
+        <form id="login-form">
+            <input type="text" id="username" placeholder="Имя пользователя" required><br>
+            <input type="password" id="password" placeholder="Пароль" required><br>
+            <button type="submit">Войти</button>
+        </form>
+        <p>Нет аккаунта? <a href="/register">Зарегистрироваться</a></p>
+        <div id="message"></div>
+    </div>
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const response = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, password })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('token', data.access_token);
+                // Токен уже установлен в куки на сервере, перенаправляем на dashboard
+                console.log('Login successful, redirecting to /dashboard');
+                window.location.href = '/dashboard';
+            } else {
+                console.log('Login failed:', data.message);
+                document.getElementById('message').innerText = data.message;
+            }
+        });
+    </script>
+</body>
+</html>
