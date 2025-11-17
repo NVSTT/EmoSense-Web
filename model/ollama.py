@@ -2,7 +2,7 @@ import requests
 import os
 from typing import Optional
 
-DEFAULT_OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://192.168.134.216:11434")
+DEFAULT_OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 DEFAULT_OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "gemma3:4b")
 TIMEOUT_SECONDS = 90
 

@@ -659,3 +659,125 @@ body::before {
 .close:hover {
     color: #333;
 }
+
+/* Стили для секции аутентификации */
+.auth-section {
+display: flex;
+justify-content: center;
+gap: 15px;
+margin-bottom: 20px;
+}
+
+.auth-btn {
+padding: 12px 25px;
+font-size: 16px;
+font-weight: 600;
+border: none;
+border-radius: 25px;
+cursor: pointer;
+transition: all 0.3s ease;
+text-transform: uppercase;
+letter-spacing: 0.5px;
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+color: white;
+box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.auth-btn:hover {
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Стили для загрузки файлов */
+.file-upload {
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 10px;
+margin-bottom: 15px;
+}
+
+.file-upload label {
+font-weight: 600;
+color: #ffffff;
+font-size: 16px;
+}
+
+.file-upload input[type="file"] {
+padding: 10px;
+border: 2px solid rgba(255, 255, 255, 0.3);
+border-radius: 10px;
+background: rgba(255, 255, 255, 0.1);
+color: #ffffff;
+font-size: 14px;
+transition: all 0.3s ease;
+backdrop-filter: blur(5px);
+}
+
+.file-upload input[type="file"]:focus {
+outline: none;
+border-color: rgba(255, 255, 255, 0.5);
+box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+background: rgba(255, 255, 255, 0.15);
+}
+
+.file-upload input[type="file"]::file-selector-button {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%);
+color: white;
+border: none;
+padding: 8px 16px;
+border-radius: 8px;
+cursor: pointer;
+font-weight: 600;
+transition: all 0.3s ease;
+margin-right: 10px;
+}
+
+.file-upload input[type="file"]::file-selector-button:hover {
+background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+transform: scale(1.05);
+}
+
+/* Стили для премиум уведомления */
+.premium-notice {
+background: linear-gradient(135deg, rgba(255, 193, 7, 0.2) 0%, rgba(255, 235, 59, 0.2) 100%);
+border: 1px solid rgba(255, 193, 7, 0.5);
+border-radius: 15px;
+padding: 20px;
+margin: 15px 0;
+text-align: center;
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+backdrop-filter: blur(10px);
+}
+
+.premium-notice p {
+color: #ffffff;
+margin: 10px 0;
+font-weight: 600;
+}
+
+.premium-notice ul {
+list-style: none;
+padding: 0;
+margin: 15px 0;
+}
+
+.premium-notice li {
+color: #ffffff;
+margin: 5px 0;
+font-style: italic;
+}
+
+.premium-btn {
+background: linear-gradient(135deg, rgba(255, 193, 7, 0.8) 0%, rgba(255, 235, 59, 0.8) 100%);
+color: #333;
+margin: 5px;
+font-weight: 700;
+border: 2px solid rgba(255, 193, 7, 0.5);
+}
+
+.premium-btn:hover {
+background: linear-gradient(135deg, rgba(255, 193, 7, 0.9) 0%, rgba(255, 235, 59, 0.9) 100%);
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(255, 193, 7, 0.4);
+}

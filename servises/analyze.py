@@ -24,7 +24,7 @@ def analyze_with_rubert(text: str):
         if len(para) <= 512:
             chunks_list = [para]
         else:
-            chunks_list = chunk.chunk(para)  # ← вызов функции из модуля
+            chunks_list = chunk(para)  # ← вызов функции из модуля
         
         for text_chunk in chunks_list:  # ← переименовано
             result = pipe(text_chunk[:512])
